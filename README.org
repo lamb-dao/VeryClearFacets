@@ -1,0 +1,62 @@
+* VeryClearFacets
+
+VCF file filtering, in slow incremental steps, designed to be transparently
+observable with optional (very) large scale visualization of each action. This
+is not a fast filter, where multiple steps are accomplished simultaneously. That
+is in fact its strength, by taking an efficient but slow route this filter can
+operate at massive scale (tested up to 16 plates merged, ~ 50M markers). This
+allows the effect of each filter operation can be understood in isolation.
+However, it is certainly slow, allow 1 week for large multi plate operations.
+
+* Requirements
+
+- Bash environment
+- R
+- vcftools
+- bcftools
+- vcflib (v1.0.3)
+- Python (3.11)
+- tabixpp (v1.1.0)
+- pdflatex
+- gnuplot
+
+* Usage
+
+Move a .vcf file to 'input' dir
+
+Then run the program
+
+=./run.sh=
+=./run.sh NULL= single input interactive mode
+=./run.sh full= single input noninteractive
+=./run.sh batch= multiple inputs in inputBatch dir, noninteractive
+
+The optional "batch" argument runs the script without interactive prompts or visualizations.
+The program uses a checkpoint system to allow for resuming interrupted runs and
+skipping completed steps. See piper docs for notes on batch processing and
+checkpoints.
+
+* Function
+
+1. Copies input VCF file to working directory
+2. Optionally creates a subset for testing
+3. Performs a series of filtering steps:
+   - Removes indels
+   - Filters by minimum quality
+   - Filters by genotype quality
+   - Filters by minor allele count
+   - Filters by depth
+   - Filters by missing data (by sample and by site)
+   - Filters by minor allele frequency
+   - Filters by allelic balance
+   - Filters by strand bias
+4. Thins the data to a target number of SNPs
+5. Generates summary statistics and plots at various steps
+
+* Output
+
+- Filtered VCF files at each step
+- Summary statistics of filtering effects
+- Plots visualizing various quality metrics
+- Final filtered VCF file
+- Log files detailing the filtering process

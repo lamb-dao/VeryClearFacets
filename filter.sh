@@ -33,12 +33,18 @@ fi
 
 ## Setup locations
 home=$(pwd)
-checkpoints=${home}/checkpoints
-input=${home}/input
-data=${home}/data
+#must exist with contents as expected
 scripts=${home}/scripts
+mkdir -p ${scripts}
+input=${home}/input
+mkdir -p ${input}
+# will create if needed
+checkpoints=${home}/checkpoints
+mkdir -p ${checkpoints}
+data=${home}/data
+mkdir -p ${data}
 output=${home}/output
-# TODO check for user folder structure is correct
+mkdir -p ${output}
 
 #### functions
 function doStep () {
@@ -778,6 +784,9 @@ fi
 #===================
 
 exit 0
+
+
+
 ###################################
 #TODO
 finetune each step, use crossplot
