@@ -27,8 +27,11 @@ Move a .vcf file to 'input' dir
 Then run the program
 
 =./run.sh=
+
 =./run.sh NULL= single input interactive mode
+
 =./run.sh full= single input noninteractive
+
 =./run.sh batch= multiple inputs in inputBatch dir, noninteractive
 
 The optional "batch" argument runs the script without interactive prompts or visualizations.
